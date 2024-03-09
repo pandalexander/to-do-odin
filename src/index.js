@@ -23,6 +23,7 @@ class Todo {
     this.priority = priority;
     this.project = project;
     project.list.push(this);
+    this.completed = false;
   }
 }
 
@@ -33,3 +34,5 @@ const firstTodo = new Todo(
   2,
   defaultProject
 );
+
+console.log(firstTodo);
