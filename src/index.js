@@ -39,5 +39,9 @@ function changeTitle(object, newTitle) {
   object.title = newTitle;
 }
 
-changeTitle(firstTodo, "Wash your Car!");
+function changeDescription(object, newDescription) {
+  object.description = newDescription;
+}
+
+changeDescription(firstTodo, "Wash your Car MAAAN!");
 console.log(firstTodo);
