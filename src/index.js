@@ -51,5 +51,13 @@ function changePriority(object, newPriority) {
   object.priority = newPriority;
 }
 
-changePriority(firstTodo, 1);
+function changeCompletion(object) {
+  if (object.completed) {
+    object.completed = false;
+  } else if (!object.completed) {
+    object.completed = true;
+  }
+}
+
+changeCompletion(firstTodo);
 console.log(firstTodo);
