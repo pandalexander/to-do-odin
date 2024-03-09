@@ -43,5 +43,9 @@ function changeDescription(object, newDescription) {
   object.description = newDescription;
 }
 
-changeDescription(firstTodo, "Wash your Car MAAAN!");
+function changeDueDate(object, newDueDate) {
+  object.dueDate = format(newDueDate, "MM-dd-yyyy");
+}
+
+changeDueDate(firstTodo, new Date(2023, 8, 25));
 console.log(firstTodo);
