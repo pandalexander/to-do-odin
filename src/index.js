@@ -59,5 +59,8 @@ function changeCompletion(object) {
   }
 }
 
-changeCompletion(firstTodo);
-console.log(firstTodo);
+function deleteTodo(todoItem) {
+  todoItem.project.list = todoItem.project.list.filter(
+    (object) => object.title != todoItem.title
+  );
+}
