@@ -1,3 +1,8 @@
-export default function buildProject() {
-  console.log("hiya! I am from the build-project module!");
+export { Project };
+
+class Project {
+  constructor(name) {
+    this.name = name;
+    this.list = [];
+  }
 }

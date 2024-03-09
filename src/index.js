@@ -1,23 +1,35 @@
 import _ from "lodash";
 import "./style.css";
-import buildProject from "./build-project.js";
+// import { Project, ToDo } from "./build-project.js";
 import { compareAsc, format } from "date-fns";
 
-format(new Date(2014, 1, 11), "yyyy-MM-dd");
-//=> '2014-02-11'
+const allProjectArray = [];
 
-const dates = [
-  new Date(1995, 6, 2),
-  new Date(1987, 1, 11),
-  new Date(1989, 6, 10),
-];
-dates.sort(compareAsc);
-//=> [
-//   Wed Feb 11 1987 00:00:00,
-//   Mon Jul 10 1989 00:00:00,
-//   Sun Jul 02 1995 00:00:00
-// ]
+class Project {
+  constructor(name) {
+    this.name = name;
+    this.list = [];
+    allProjectArray.push(this);
+  }
+}
 
-console.log(dates[0]);
+const defaultProject = new Project("My To-Do");
 
-buildProject();
+class Todo {
+  constructor(title, description, dueDate, priority, project) {
+    this.title = title;
+    this.description = description;
+    this.dueDate = format(dueDate, "MM-dd-yyyy");
+    this.priority = priority;
+    this.project = project;
+    project.list.push(this);
+  }
+}
+
+const firstTodo = new Todo(
+  "Do Taxes",
+  "Do you Taxes, man.",
+  new Date(2023, 3, 15),
+  2,
+  defaultProject
+);
