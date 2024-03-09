@@ -64,3 +64,7 @@ function deleteTodo(todoItem) {
     (object) => object.title != todoItem.title
   );
 }
+
+function changeProject(todoItem, newProject) {
+  todoItem.project = newProject;
+}
