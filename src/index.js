@@ -47,5 +47,9 @@ function changeDueDate(object, newDueDate) {
   object.dueDate = format(newDueDate, "MM-dd-yyyy");
 }
 
-changeDueDate(firstTodo, new Date(2023, 8, 25));
+function changePriority(object, newPriority) {
+  object.priority = newPriority;
+}
+
+changePriority(firstTodo, 1);
 console.log(firstTodo);
