@@ -3,7 +3,7 @@ import "./style.css";
 // import { Project, ToDo } from "./build-project.js";
 import { compareAsc, format } from "date-fns";
 
-const allProjectArray = [];
+let allProjectArray = [];
 
 class Project {
   constructor(name) {
@@ -67,4 +67,10 @@ function deleteTodo(todoItem) {
 
 function changeProject(todoItem, newProject) {
   todoItem.project = newProject;
+}
+
+function deleteProject(project) {
+  allProjectArray = allProjectArray.filter(
+    (object) => object.name != project.name
+  );
 }
