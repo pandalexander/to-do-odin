@@ -1,8 +1,8 @@
-export { Project };
+// export { Project };
 
-class Project {
-  constructor(name) {
-    this.name = name;
-    this.list = [];
-  }
-}
+// class Project {
+//   constructor(name) {
+//     this.name = name;
+//     this.list = [];
+//   }
+// }

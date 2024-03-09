@@ -1,4 +1,4 @@
-import _ from "lodash";
+import _, { first } from "lodash";
 import "./style.css";
 // import { Project, ToDo } from "./build-project.js";
 import { compareAsc, format } from "date-fns";
@@ -35,4 +35,9 @@ const firstTodo = new Todo(
   defaultProject
 );
 
+function changeTitle(object, newTitle) {
+  object.title = newTitle;
+}
+
+changeTitle(firstTodo, "Wash your Car!");
 console.log(firstTodo);
