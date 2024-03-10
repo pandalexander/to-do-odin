@@ -98,23 +98,7 @@ function deleteProject(project) {
 
 const body = document.getElementById("body");
 const leftContainer = document.getElementById("left-container");
-
-function printAllProjects() {
-  document.body.innerHTML = "";
-  for (const item of allProjectArray) {
-    let newItem = document.createElement("h1");
-    newItem.textContent = item.name;
-    body.appendChild(newItem);
-
-    for (let i = 0; i < item.list.length; i++) {
-      for (const property in item.list[i]) {
-        let newProp = document.createElement("p");
-        newProp.textContent = `${property}: ${item.list[i][property]}`;
-        body.appendChild(newProp);
-      }
-    }
-  }
-}
+const rightContainer = document.getElementById("right-container");
 
 function printProjectsOnSidebar() {
   for (const item of allProjectArray) {
@@ -129,8 +113,57 @@ function printProjectsOnSidebar() {
     let p = document.createElement("p");
     p.textContent = item.name;
     newDiv.appendChild(p);
-    console.log(newDiv);
   }
 }
 
-printProjectsOnSidebar();
+function printAllTodoItems() {
+  rightContainer.innerHTML = "";
+  let allProjectsHeader = document.createElement("h1");
+  allProjectsHeader.textContent = "All Projects";
+  rightContainer.appendChild(allProjectsHeader);
+
+  for (const item of allProjectArray) {
+    let newProjectView = document.createElement("div");
+    newProjectView.classList.add("project-view");
+    rightContainer.appendChild(newProjectView);
+
+    let newProjectHeader = document.createElement("h3");
+    newProjectHeader.textContent = item.name;
+    newProjectView.appendChild(newProjectHeader);
+
+    for (let i = 0; i < item.list.length; i++) {
+      console.log(item.list[i]);
+      let newToDoDiv = document.createElement("div");
+      newToDoDiv.classList.add("to-do-item");
+      newProjectView.appendChild(newToDoDiv);
+
+      let toDoImage = document.createElement("img");
+      if (item.list[i].completed) {
+        toDoImage.src = "../src/svg/check-circle.svg";
+      } else {
+        toDoImage.src = "../src/svg/circle.svg";
+      }
+      newToDoDiv.appendChild(toDoImage);
+
+      let para = document.createElement("p");
+      para.textContent = item.list[i].title;
+      newToDoDiv.appendChild(para);
+
+      let span = document.createElement("span");
+      if (item.list[i].completed) {
+        span.classList.add("done");
+      } else {
+        span.classList.add("undone");
+      }
+      span.textContent = "Due: " + item.list[i].dueDate;
+      newToDoDiv.appendChild(span);
+    }
+  }
+}
+
+function printEverything() {
+  printAllTodoItems();
+  printProjectsOnSidebar();
+}
+
+printEverything();
