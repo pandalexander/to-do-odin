@@ -2,6 +2,17 @@ import _, { first } from "lodash";
 import "./style.css";
 // import { Project, ToDo } from "./build-project.js";
 import { compareAsc, format } from "date-fns";
+import BookIcon from "./svg/book.svg";
+import CheckCircleIcon from "./svg/check-circle.svg";
+import CircleIcon from "./svg/circle.svg";
+import PlusSquare from "./svg/plus-square.svg";
+import PlusIcon from "./svg/plus.svg";
+
+const plusSquareIcon = document.getElementById("plus-square-icon");
+const plusIcon = document.getElementById("plus-icon");
+
+plusSquareIcon.src = PlusSquare;
+plusIcon.src = PlusIcon;
 
 let allProjectArray = [];
 
@@ -106,9 +117,9 @@ function printProjectsOnSidebar() {
     newDiv.classList.add("item");
     leftContainer.appendChild(newDiv);
 
-    let image = document.createElement("img");
-    image.src = "../src/svg/book.svg";
-    newDiv.appendChild(image);
+    let bookIcon = document.createElement("img");
+    bookIcon.src = BookIcon;
+    newDiv.appendChild(bookIcon);
 
     let p = document.createElement("p");
     p.textContent = item.name;
@@ -139,9 +150,9 @@ function printAllTodoItems() {
 
       let toDoImage = document.createElement("img");
       if (item.list[i].completed) {
-        toDoImage.src = "../src/svg/check-circle.svg";
+        toDoImage.src = CheckCircleIcon;
       } else {
-        toDoImage.src = "../src/svg/circle.svg";
+        toDoImage.src = CircleIcon;
       }
       newToDoDiv.appendChild(toDoImage);
 
