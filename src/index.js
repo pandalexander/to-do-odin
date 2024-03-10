@@ -112,6 +112,11 @@ const leftContainer = document.getElementById("left-container");
 const rightContainer = document.getElementById("right-container");
 
 function printProjectsOnSidebar() {
+  leftContainer.innerHTML = "";
+  let allProjectHeader = document.createElement("h2");
+  allProjectHeader.textContent = "All Projects";
+  leftContainer.appendChild(allProjectHeader);
+
   for (const item of allProjectArray) {
     let newDiv = document.createElement("div");
     newDiv.classList.add("item");
@@ -154,6 +159,10 @@ function printAllTodoItems() {
       } else {
         toDoImage.src = CircleIcon;
       }
+      toDoImage.onclick = function () {
+        changeCompletion(item.list[i]);
+        printEverything();
+      };
       newToDoDiv.appendChild(toDoImage);
 
       let para = document.createElement("p");
