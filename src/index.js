@@ -97,6 +97,7 @@ function deleteProject(project) {
 // DOM MANIPULATION
 
 const body = document.getElementById("body");
+const leftContainer = document.getElementById("left-container");
 
 function printAllProjects() {
   document.body.innerHTML = "";
@@ -114,3 +115,24 @@ function printAllProjects() {
     }
   }
 }
+
+function printProjectsOnSidebar() {
+  for (const item of allProjectArray) {
+    let newDiv = document.createElement("div");
+    newDiv.classList.add("item");
+    leftContainer.appendChild(newDiv);
+
+    let image = document.createElement("img");
+    image.src = "../src/svg/book.svg";
+    newDiv.appendChild(image);
+
+    let p = document.createElement("p");
+    p.textContent = item.name;
+    newDiv.appendChild(p);
+    console.log(newDiv);
+  }
+}
+
+const thirdProject = new Project("Hiya!");
+
+printProjectsOnSidebar();
