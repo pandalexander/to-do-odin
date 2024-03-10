@@ -133,6 +133,4 @@ function printProjectsOnSidebar() {
   }
 }
 
-const thirdProject = new Project("Hiya!");
-
 printProjectsOnSidebar();
