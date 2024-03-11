@@ -113,9 +113,41 @@ const rightContainer = document.getElementById("right-container");
 
 function printProjectsOnSidebar() {
   leftContainer.innerHTML = "";
+
   let allProjectHeader = document.createElement("h2");
   allProjectHeader.textContent = "All Projects";
   leftContainer.appendChild(allProjectHeader);
+
+  let addNewDiv = document.createElement("div");
+  addNewDiv.classList.add("add-new-section");
+  leftContainer.appendChild(addNewDiv);
+
+  let addProjectSubDiv = document.createElement("div");
+  addProjectSubDiv.classList.add("item");
+  addNewDiv.appendChild(addProjectSubDiv);
+
+  let plusIcon = document.createElement("img");
+  plusIcon.src = PlusSquare;
+  addProjectSubDiv.appendChild(plusIcon);
+
+  let addProjectPara = document.createElement("p");
+  addProjectPara.textContent = "Add Project";
+  addProjectSubDiv.appendChild(addProjectPara);
+
+  // Add ToDo
+
+  let addTodoDiv = document.createElement("div");
+  addTodoDiv.classList.add("item");
+  addTodoDiv.setAttribute("id", "add-to-do-div");
+  addNewDiv.appendChild(addTodoDiv);
+
+  let plusTodoIcon = document.createElement("img");
+  plusTodoIcon.src = PlusIcon;
+  addTodoDiv.appendChild(plusTodoIcon);
+
+  let addTodoPara = document.createElement("p");
+  addTodoPara.textContent = "Add Todo";
+  addTodoDiv.appendChild(addTodoPara);
 
   for (const item of allProjectArray) {
     let newDiv = document.createElement("div");
