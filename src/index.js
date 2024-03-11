@@ -145,7 +145,7 @@ function printProjectsOnSidebar() {
 
   let addTodoDiv = document.createElement("div");
   addTodoDiv.classList.add("item");
-  addTodoDiv.setAttribute("id", "add-to-do-div");
+  addTodoDiv.setAttribute("id", "show-todo-popup");
   addNewDiv.appendChild(addTodoDiv);
 
   let plusTodoIcon = document.createElement("img");
@@ -155,6 +155,12 @@ function printProjectsOnSidebar() {
   let addTodoPara = document.createElement("p");
   addTodoPara.textContent = "Add Todo";
   addTodoDiv.appendChild(addTodoPara);
+
+  document
+    .getElementById("show-todo-popup")
+    .addEventListener("click", function () {
+      document.getElementById("add-todo-popup").style.display = "block";
+    });
 
   for (const item of allProjectArray) {
     let newDiv = document.createElement("div");
@@ -226,7 +232,7 @@ function printEverything() {
 
 printEverything();
 
-// Popup DOM
+// Popup for new Project - DOM
 
 document
   .getElementById("show-project-popup")
@@ -263,5 +269,48 @@ document
 
     // Hide the popup
     document.getElementById("add-project-popup").style.display = "none";
+    printEverything();
+  });
+
+// Popup for new todo - DOM
+
+document
+  .getElementById("show-todo-popup")
+  .addEventListener("click", function () {
+    document.getElementById("add-todo-popup").style.display = "block";
+  });
+
+document
+  .getElementById("todo-popup-close")
+  .addEventListener("click", function () {
+    document.getElementById("add-todo-popup").style.display = "none";
+  });
+
+window.addEventListener("click", function (event) {
+  if (event.target == document.getElementById("add-todo-popup")) {
+    document.getElementById("add-todo-popup").style.display = "none";
+  }
+});
+
+document
+  .getElementById("add-todo-form")
+  .addEventListener("submit", function (event) {
+    event.preventDefault(); // Prevent the default form submission behavior
+
+    console.log(document.getElementById("todo-name").value);
+    // Get the input value
+    // var todoName = document.getElementById("todo-name").value;
+
+    // Log the input value to the console
+
+    // var newTodo = new Todo(todoName);
+
+    // You can add further processing here, like sending the data to the server
+
+    // Reset the form
+    this.reset();
+
+    // Hide the popup
+    document.getElementById("add-todo-popup").style.display = "none";
     printEverything();
   });
