@@ -167,6 +167,7 @@ function printProjectsOnSidebar() {
   document
     .getElementById("show-todo-popup")
     .addEventListener("click", function () {
+      document.getElementById("todo-project").innerHTML = "";
       for (const project of allProjectArray) {
         let projectOption = document.createElement("option");
         projectOption.value = project.name;
@@ -295,6 +296,7 @@ const todoProjectSelect = document.getElementById("todo-project");
 document
   .getElementById("show-todo-popup")
   .addEventListener("click", function () {
+    document.getElementById("todo-project").innerHTML = "";
     for (const project of allProjectArray) {
       let projectOption = document.createElement("option");
       projectOption.value = project.name;
