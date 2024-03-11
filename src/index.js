@@ -124,12 +124,14 @@ function printProjectsOnSidebar() {
 
   let addProjectSubDiv = document.createElement("div");
   addProjectSubDiv.classList.add("item");
-  addProjectSubDiv.setAttribute("id", "show-popup");
+  addProjectSubDiv.setAttribute("id", "show-project-popup");
   addNewDiv.appendChild(addProjectSubDiv);
 
-  document.getElementById("show-popup").addEventListener("click", function () {
-    document.getElementById("add-project-popup").style.display = "block";
-  });
+  document
+    .getElementById("show-project-popup")
+    .addEventListener("click", function () {
+      document.getElementById("add-project-popup").style.display = "block";
+    });
 
   let plusIcon = document.createElement("img");
   plusIcon.src = PlusSquare;
@@ -226,9 +228,11 @@ printEverything();
 
 // Popup DOM
 
-document.getElementById("show-popup").addEventListener("click", function () {
-  document.getElementById("add-project-popup").style.display = "block";
-});
+document
+  .getElementById("show-project-popup")
+  .addEventListener("click", function () {
+    document.getElementById("add-project-popup").style.display = "block";
+  });
 
 document.querySelector(".close").addEventListener("click", function () {
   document.getElementById("add-project-popup").style.display = "none";
