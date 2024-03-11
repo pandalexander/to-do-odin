@@ -1,7 +1,7 @@
 import _, { first } from "lodash";
 import "./style.css";
 // import { Project, ToDo } from "./build-project.js";
-import { compareAsc, format } from "date-fns";
+import { parseISO, format } from "date-fns";
 import BookIcon from "./svg/book.svg";
 import CheckCircleIcon from "./svg/check-circle.svg";
 import CircleIcon from "./svg/circle.svg";
@@ -26,36 +26,44 @@ class Project {
 
 const defaultProject = new Project("My To-Do");
 
-const secondProject = new Project("My Second To-Do");
+// const secondProject = new Project("My Second To-Do");
 
 class Todo {
   constructor(title, description, dueDate, priority, project) {
     this.title = title;
     this.description = description;
-    this.dueDate = format(dueDate, "MM-dd-yyyy");
+    this.dueDate = dueDate;
+
+    // this.dueDate = format(dueDate, "MM-dd-yyyy");
     this.priority = priority;
     this.project = project;
     this.projectPublicName = project.name;
-    project.list.push(this);
+    // project.list.push(this);
     this.completed = false;
+
+    for (const item of allProjectArray) {
+      if (item.name == project) {
+        item.list.push(this);
+      }
+    }
   }
 }
 
 const firstTodo = new Todo(
   "Do Taxes",
   "Do you Taxes, man.",
-  new Date(2023, 3, 15),
+  "Monday, 4/15/24",
   2,
-  defaultProject
+  "My To-Do"
 );
 
-const secondTodo = new Todo(
-  "Clean Car",
-  "Just do it",
-  new Date(2023, 2, 3),
-  0,
-  defaultProject
-);
+// const secondTodo = new Todo(
+//   "Clean Car",
+//   "Just do it",
+//   new Date(2023, 2, 3),
+//   0,
+//   defaultProject
+// );
 
 function changeTitle(object, newTitle) {
   object.title = newTitle;
@@ -96,7 +104,7 @@ function changeProject(todoItem, newProject) {
   todoItem.projectPublicName = newProject.name;
 }
 
-changeProject(secondTodo, secondProject);
+// changeProject(secondTodo, secondProject);
 
 function deleteProject(project) {
   allProjectArray = allProjectArray.filter(
@@ -159,6 +167,14 @@ function printProjectsOnSidebar() {
   document
     .getElementById("show-todo-popup")
     .addEventListener("click", function () {
+      for (const project of allProjectArray) {
+        let projectOption = document.createElement("option");
+        projectOption.value = project.name;
+        projectOption.textContent = project.name;
+        todoProjectSelect.appendChild(projectOption);
+        console.log(allProjectArray);
+        console.log(project);
+      }
       document.getElementById("add-todo-popup").style.display = "block";
     });
 
@@ -270,6 +286,8 @@ document
     // Hide the popup
     document.getElementById("add-project-popup").style.display = "none";
     printEverything();
+
+    console.log(allProjectArray);
   });
 
 // Popup for new todo - DOM
@@ -282,6 +300,8 @@ document
       projectOption.value = project.name;
       projectOption.textContent = project.name;
       todoProjectSelect.appendChild(projectOption);
+      console.log(allProjectArray);
+      console.log(project);
     }
     document.getElementById("add-todo-popup").style.display = "block";
   });
@@ -303,15 +323,25 @@ document
   .addEventListener("submit", function (event) {
     event.preventDefault(); // Prevent the default form submission behavior
 
-    console.log(document.getElementById("todo-title").value);
-    // Get the input value
-    // var todoName = document.getElementById("todo-title").value;
+    let newTodoTitle = document.getElementById("todo-title").value;
+    let newTodoDescription = document.getElementById("todo-description").value;
+    let newTodoDueDate = format(
+      parseISO(document.getElementById("todo-due-date").value),
+      "EEEE, M/d/yy"
+    );
 
-    // Log the input value to the console
+    let newTodoPriority = Number(
+      document.getElementById("todo-priority").value
+    );
+    let newTodoProject = document.getElementById("todo-project").value;
 
-    // var newTodo = new Todo(todoName);
-
-    // You can add further processing here, like sending the data to the server
+    let newTodo = new Todo(
+      newTodoTitle,
+      newTodoDescription,
+      newTodoDueDate,
+      newTodoPriority,
+      newTodoProject
+    );
 
     // Reset the form
     this.reset();
