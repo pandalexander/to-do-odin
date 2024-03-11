@@ -273,10 +273,16 @@ document
   });
 
 // Popup for new todo - DOM
-
+const todoProjectSelect = document.getElementById("todo-project");
 document
   .getElementById("show-todo-popup")
   .addEventListener("click", function () {
+    for (const project of allProjectArray) {
+      let projectOption = document.createElement("option");
+      projectOption.value = project.name;
+      projectOption.textContent = project.name;
+      todoProjectSelect.appendChild(projectOption);
+    }
     document.getElementById("add-todo-popup").style.display = "block";
   });
 
