@@ -297,9 +297,9 @@ document
   .addEventListener("submit", function (event) {
     event.preventDefault(); // Prevent the default form submission behavior
 
-    console.log(document.getElementById("todo-name").value);
+    console.log(document.getElementById("todo-title").value);
     // Get the input value
-    // var todoName = document.getElementById("todo-name").value;
+    // var todoName = document.getElementById("todo-title").value;
 
     // Log the input value to the console
 
