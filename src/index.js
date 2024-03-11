@@ -124,7 +124,12 @@ function printProjectsOnSidebar() {
 
   let addProjectSubDiv = document.createElement("div");
   addProjectSubDiv.classList.add("item");
+  addProjectSubDiv.setAttribute("id", "show-popup");
   addNewDiv.appendChild(addProjectSubDiv);
+
+  document.getElementById("show-popup").addEventListener("click", function () {
+    document.getElementById("add-project-popup").style.display = "block";
+  });
 
   let plusIcon = document.createElement("img");
   plusIcon.src = PlusSquare;
@@ -180,7 +185,6 @@ function printAllTodoItems() {
     newProjectView.appendChild(newProjectHeader);
 
     for (let i = 0; i < item.list.length; i++) {
-      console.log(item.list[i]);
       let newToDoDiv = document.createElement("div");
       newToDoDiv.classList.add("to-do-item");
       newProjectView.appendChild(newToDoDiv);
@@ -219,3 +223,41 @@ function printEverything() {
 }
 
 printEverything();
+
+// Popup DOM
+
+document.getElementById("show-popup").addEventListener("click", function () {
+  document.getElementById("add-project-popup").style.display = "block";
+});
+
+document.querySelector(".close").addEventListener("click", function () {
+  document.getElementById("add-project-popup").style.display = "none";
+});
+
+window.addEventListener("click", function (event) {
+  if (event.target == document.getElementById("add-project-popup")) {
+    document.getElementById("add-project-popup").style.display = "none";
+  }
+});
+
+document
+  .getElementById("add-project-form")
+  .addEventListener("submit", function (event) {
+    event.preventDefault(); // Prevent the default form submission behavior
+
+    // Get the input value
+    var projectName = document.getElementById("project-name").value;
+
+    // Log the input value to the console
+
+    var newProject = new Project(projectName);
+
+    // You can add further processing here, like sending the data to the server
+
+    // Reset the form
+    this.reset();
+
+    // Hide the popup
+    document.getElementById("add-project-popup").style.display = "none";
+    printEverything();
+  });
