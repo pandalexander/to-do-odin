@@ -55,7 +55,7 @@ class Todo {
 const firstTodo = new Todo(
   "Do Taxes",
   "Do you Taxes, man.",
-  "Monday, 4/15/24",
+  "4/15/2024",
   2,
   "My To-Do"
 );
@@ -80,8 +80,13 @@ function changeDescription(object, newDescription) {
   object.description = newDescription;
 }
 
+function formatDate(inputDate) {
+  const parsedDate = parse(inputDate, "yyyy-MM-dd", new Date());
+  return format(parsedDate, "MM/dd/yyyy");
+}
+
 function changeDueDate(object, newDueDate) {
-  object.dueDate = format(newDueDate, "MM-dd-yyyy");
+  object.dueDate = newDueDate;
 }
 
 function changePriority(object, newPriority) {
@@ -103,15 +108,22 @@ function deleteTodo(todoItem) {
 }
 
 function changeProject(todoItem, newProject) {
-  todoItem.project.list = todoItem.project.list.filter(
-    (object) => object.title != todoItem.title
-  );
-  todoItem.project = newProject;
-  newProject.list.push(todoItem);
-  todoItem.projectPublicName = newProject.name;
-}
+  for (const project of allProjectArray) {
+    if ((todoItem.project = project.name)) {
+      project.list = project.list.filter(
+        (object) => object.title != todoItem.title
+      );
+    }
+  }
 
-// changeProject(secondTodo, secondProject);
+  for (const project of allProjectArray) {
+    if (project.name == newProject) {
+      todoItem.project = project.name;
+      project.list.push(todoItem);
+      todoItem.projectPublicName = project.name;
+    }
+  }
+}
 
 function deleteProject(project) {
   allProjectArray = allProjectArray.filter(
@@ -292,31 +304,10 @@ function printAllTodoItems() {
         }
         viewSpecificTodo.appendChild(viewPriority);
 
-        // Function to parse the date string in "Monday, 4/15/24" format
-        let parseDateString = (dateString) => {
-          // Split the dateString into day, month, and year parts
-          const [dayOfWeek, date] = dateString.split(", ");
-          const [month, day, year] = date.split("/");
-
-          // Parse the parts into a Date object
-          return parse(`${month}/${day}/${year}`, "MM/dd/yy", new Date());
-        };
-
-        let givenDateString = obj.dueDate;
-        let givenDate = parseDateString(givenDateString);
-
-        // Calculate the difference in days between today and the given date
-        let daysDifference = differenceInDays(new Date(), givenDate) * -1 + 1;
-
         let viewDueDate = document.createElement("p");
-        viewDueDate.textContent = `Days left to complete task: ${daysDifference}`;
-        if (daysDifference > 30) {
-          viewDueDate.style.color = "#00685e";
-        } else if (daysDifference >= 4 && daysDifference <= 30) {
-          viewDueDate.style.color = "#fa9370";
-        } else if (daysDifference <= 3) {
-          viewDueDate.style.color = "#ce0037";
-        }
+        viewDueDate.textContent = "Due: " + obj.dueDate;
+        viewDueDate.style.color = viewPriority.style.color;
+
         viewSpecificTodo.appendChild(viewDueDate);
 
         let viewProject = document.createElement("p");
@@ -357,7 +348,95 @@ function printAllTodoItems() {
       let editButton = document.createElement("img");
       editButton.src = EditIcon;
       editButton.onclick = function () {
-        console.log(item.list[i]);
+        // View to-Do Item DOM manipulation
+        let editSpecificTodo = document.getElementById(
+          "edit-todo-popup-specific"
+        );
+
+        const editTodoProjectSelect =
+          document.getElementById("edit-todo-project");
+
+        editTodoProjectSelect.innerHTML = "";
+        for (const project of allProjectArray) {
+          let projectOption = document.createElement("option");
+          projectOption.value = project.name;
+          projectOption.textContent = project.name;
+          editTodoProjectSelect.appendChild(projectOption);
+        }
+
+        let obj = item.list[i];
+
+        document.getElementById("edit-todo-title").value = obj.title;
+
+        document.getElementById("edit-todo-due-date").value = format(
+          new Date(
+            obj.dueDate.split("/")[2],
+            obj.dueDate.split("/")[0] - 1,
+            obj.dueDate.split("/")[1]
+          ),
+          "yyyy-MM-dd"
+        );
+
+        document.getElementById("edit-todo-description").value =
+          obj.description;
+
+        document.getElementById("edit-todo-priority").value = obj.priority;
+
+        document.getElementById("edit-todo-project").value = obj.project;
+
+        function submitHandler(event) {
+          event.preventDefault(); // Prevent the default form submission behavior
+
+          changeTitle(obj, document.getElementById("edit-todo-title").value);
+
+          changeDueDate(
+            obj,
+            formatDate(document.getElementById("edit-todo-due-date").value)
+          );
+
+          changeDescription(
+            obj,
+            document.getElementById("edit-todo-description").value
+          );
+
+          changePriority(
+            obj,
+            document.getElementById("edit-todo-priority").value
+          );
+
+          changeProject(
+            obj,
+            document.getElementById("edit-todo-project").value
+          );
+
+          // Reset the form
+          this.reset();
+
+          // Hide the popup
+          document.getElementById("edit-todo-popup").style.display = "none";
+          printEverything();
+
+          // Remove the event listener after submission
+          this.removeEventListener("submit", submitHandler);
+        }
+
+        document
+          .getElementById("edit-todo-form")
+          .addEventListener("submit", submitHandler);
+
+        document.getElementById("edit-todo-popup").style.display = "block";
+
+        document
+          .getElementById("edit-todo-popup-close")
+          .addEventListener("click", function () {
+            document.getElementById("edit-todo-popup").style.display = "none";
+          });
+
+        window.addEventListener("click", function (event) {
+          if (event.target == document.getElementById("edit-todo-popup")) {
+            document.getElementById("edit-todo-popup").style.display = "none";
+          }
+        });
       };
       newToDoDiv.appendChild(editButton);
     }
@@ -451,7 +530,7 @@ document
     let newTodoDescription = document.getElementById("todo-description").value;
     let newTodoDueDate = format(
       parseISO(document.getElementById("todo-due-date").value),
-      "EEEE, M/d/yy"
+      "M/dd/yyyy"
     );
 
     let newTodoPriority = Number(
@@ -474,5 +553,3 @@ document
     document.getElementById("add-todo-popup").style.display = "none";
     printEverything();
   });
-
-// Edit Project Name Item

@@ -12,6 +12,57 @@
     />
   </head>
   <body id="body">
+    <!-- Edit Todo Popup -->
+    <div id="edit-todo-popup" class="popup">
+      <div class="edit-todo-popup-content">
+        <span id="edit-todo-popup-close">&times;</span>
+        <div id="edit-todo-popup-specific">
+          <h2>Edit Todo</h2>
+          <form id="edit-todo-form">
+            <label for="edit-todo-title">Title: </label>
+
+            <input
+              type="text"
+              id="edit-todo-title"
+              name="edit-todo-title"
+              placeholder="Title"
+              required
+            />
+
+            <label for="edit-todo-due-date">Due Date: </label>
+            <input
+              type="date"
+              id="edit-todo-due-date"
+              name="edit-todo-due-date"
+              required
+            />
+
+            <label for="edit-todo-description">Description: </label>
+            <input
+              type="text"
+              id="edit-todo-description"
+              name="edit-todo-description"
+              placeholder="Description"
+              required
+            />
+
+            <label for="edit-todo-priority">Priority:</label>
+            <select name="edit-todo-priority" id="edit-todo-priority">
+              <option value="0">Low</option>
+              <option value="1">Medium</option>
+              <option value="2">High</option>
+            </select>
+
+            <label for="edit-todo-project">Project:</label>
+
+            <select name="edit-todo-project" id="edit-todo-project"></select>
+
+            <button type="submit">Edit Todo</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
     <!-- View Todo Popup -->
     <div id="view-todo-popup" class="popup">
       <div class="view-todo-popup-content">

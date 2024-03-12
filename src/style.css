@@ -308,4 +308,66 @@ input:focus,
   cursor: pointer;
 }
 
-/*Testing*/
+/* Edit To Do Styling */
+
+/* View To do Styling */
+#edit-todo-popup:hover {
+  cursor: pointer;
+}
+
+.edit-todo-popup-content {
+  border-radius: 15px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  background-color: #fefefe;
+  margin: 10% auto;
+  padding: 20px;
+  width: 80%;
+  max-width: 400px;
+}
+
+.edit-todo-popup-content p {
+  margin-top: 15px;
+}
+
+#edit-todo-popup-close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Edit todo Form Styling */
+
+#edit-todo-form input {
+  flex: 1 1 auto;
+  padding: 7px;
+  height: 19px;
+  border-radius: 5px;
+  border: solid 1px gray;
+}
+
+#edit-todo-form select {
+  padding: 7px;
+  border-radius: 5px;
+  border: solid 1px gray;
+}
+
+input:focus,
+#edit-todo-form select:focus {
+  outline: none !important;
+  border: 1px solid #7aad7b;
+  box-shadow: 0 0 10px #7aad7b;
+}
+
+#edit-todo-form {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 15px;
+}
+
+#edit-todo-form button {
+  grid-column: 1 / -1;
+}
