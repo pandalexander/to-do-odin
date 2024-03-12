@@ -231,12 +231,12 @@ function printAllTodoItems() {
       para.textContent = item.list[i].title;
       newToDoDiv.appendChild(para);
 
-      let editButton = document.createElement("img");
-      editButton.src = EditIcon;
-      editButton.onclick = function () {
-        console.log(item.list[i]);
-      };
-      newToDoDiv.appendChild(editButton);
+      // let editButton = document.createElement("img");
+      // editButton.src = EditIcon;
+      // editButton.onclick = function () {
+      //   console.log(item.list[i]);
+      // };
+      // newToDoDiv.appendChild(editButton);
 
       let span = document.createElement("span");
       if (item.list[i].completed) {
@@ -246,6 +246,13 @@ function printAllTodoItems() {
       }
       span.textContent = "Due: " + item.list[i].dueDate;
       newToDoDiv.appendChild(span);
+
+      let editButton = document.createElement("img");
+      editButton.src = EditIcon;
+      editButton.onclick = function () {
+        console.log(item.list[i]);
+      };
+      newToDoDiv.appendChild(editButton);
     }
   }
 }
