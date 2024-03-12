@@ -99,6 +99,10 @@ h2 {
   margin-right: 30px;
 }
 
+.view-button {
+  margin-right: 30px !important;
+}
+
 .undone {
   color: orange;
   margin: 0;

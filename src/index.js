@@ -8,6 +8,7 @@ import CircleIcon from "./svg/circle.svg";
 import PlusSquare from "./svg/plus-square.svg";
 import PlusIcon from "./svg/plus.svg";
 import EditIcon from "./svg/edit.svg";
+import EyeIcon from "./svg/eye.svg";
 
 const plusSquareIcon = document.getElementById("plus-square-icon");
 const plusIcon = document.getElementById("plus-icon");
@@ -231,13 +232,6 @@ function printAllTodoItems() {
       para.textContent = item.list[i].title;
       newToDoDiv.appendChild(para);
 
-      // let editButton = document.createElement("img");
-      // editButton.src = EditIcon;
-      // editButton.onclick = function () {
-      //   console.log(item.list[i]);
-      // };
-      // newToDoDiv.appendChild(editButton);
-
       let span = document.createElement("span");
       if (item.list[i].completed) {
         span.classList.add("done");
@@ -246,6 +240,14 @@ function printAllTodoItems() {
       }
       span.textContent = "Due: " + item.list[i].dueDate;
       newToDoDiv.appendChild(span);
+
+      let viewButton = document.createElement("img");
+      viewButton.src = EyeIcon;
+      viewButton.classList.add("view-button");
+      viewButton.onclick = function () {
+        console.log(item.list[i]);
+      };
+      newToDoDiv.appendChild(viewButton);
 
       let editButton = document.createElement("img");
       editButton.src = EditIcon;
