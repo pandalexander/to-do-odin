@@ -1,4 +1,4 @@
-import _, { first } from "lodash";
+import _, { first, transform } from "lodash";
 import "./style.css";
 // import { Project, ToDo } from "./build-project.js";
 import { parseISO, format, differenceInDays, parse } from "date-fns";
@@ -9,6 +9,7 @@ import PlusSquare from "./svg/plus-square.svg";
 import PlusIcon from "./svg/plus.svg";
 import EditIcon from "./svg/edit.svg";
 import EyeIcon from "./svg/eye.svg";
+import TrashIcon from "./svg/trash.svg";
 
 const plusSquareIcon = document.getElementById("plus-square-icon");
 const plusIcon = document.getElementById("plus-icon");
@@ -66,6 +67,10 @@ const firstTodo = new Todo(
 //   0,
 //   defaultProject
 // );
+
+function changeProjectName(project, newName) {
+  project.name = newName;
+}
 
 function changeTitle(object, newTitle) {
   object.title = newTitle;
@@ -187,9 +192,18 @@ function printProjectsOnSidebar() {
     newDiv.classList.add("item");
     leftContainer.appendChild(newDiv);
 
-    let bookIcon = document.createElement("img");
-    bookIcon.src = BookIcon;
-    newDiv.appendChild(bookIcon);
+    let trashIcon = document.createElement("img");
+    trashIcon.src = TrashIcon;
+    trashIcon.style.marginRIGHT = "5px";
+    trashIcon.onclick = function () {
+      deleteProject(item);
+      printEverything();
+    };
+    newDiv.appendChild(trashIcon);
+
+    // let bookIcon = document.createElement("img");
+    // bookIcon.src = BookIcon;
+    // newDiv.appendChild(bookIcon);
 
     let p = document.createElement("p");
     p.textContent = item.name;
@@ -288,7 +302,6 @@ function printAllTodoItems() {
           return parse(`${month}/${day}/${year}`, "MM/dd/yy", new Date());
         };
 
-        // Example usage
         let givenDateString = obj.dueDate;
         let givenDate = parseDateString(givenDateString);
 
@@ -461,3 +474,5 @@ document
     document.getElementById("add-todo-popup").style.display = "none";
     printEverything();
   });
+
+// Edit Project Name Item
