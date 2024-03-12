@@ -23,13 +23,21 @@ class Project {
   constructor(name) {
     this.name = name;
     this.list = [];
-    allProjectArray.push(this);
+    if (this.isNameTaken()) {
+      alert("Project name already exists. Please choose a different name.");
+      // You can choose to throw an error or handle the situation differently based on your requirements
+      // throw new Error("Project name already exists. Please choose a different name.");
+    } else {
+      allProjectArray.push(this);
+    }
+  }
+
+  isNameTaken() {
+    return allProjectArray.some((project) => project.name === this.name);
   }
 }
 
 const defaultProject = new Project("My To-Do");
-
-// const secondProject = new Project("My Second To-Do");
 
 class Todo {
   constructor(title, description, dueDate, priority, project) {
