@@ -1,7 +1,7 @@
 import _, { first } from "lodash";
 import "./style.css";
 // import { Project, ToDo } from "./build-project.js";
-import { parseISO, format } from "date-fns";
+import { parseISO, format, differenceInDays, parse } from "date-fns";
 import BookIcon from "./svg/book.svg";
 import CheckCircleIcon from "./svg/check-circle.svg";
 import CircleIcon from "./svg/circle.svg";
@@ -120,6 +120,7 @@ function deleteProject(project) {
 const body = document.getElementById("body");
 const leftContainer = document.getElementById("left-container");
 const rightContainer = document.getElementById("right-container");
+const viewTodoPopup = document.getElementById("view-todo-popup");
 
 function printProjectsOnSidebar() {
   leftContainer.innerHTML = "";
@@ -245,7 +246,98 @@ function printAllTodoItems() {
       viewButton.src = EyeIcon;
       viewButton.classList.add("view-button");
       viewButton.onclick = function () {
-        console.log(item.list[i]);
+        // View to-Do Item DOM manipulation
+        let viewSpecificTodo = document.getElementById(
+          "view-todo-popup-specific"
+        );
+        let obj = item.list[i];
+
+        viewSpecificTodo.innerHTML = "";
+
+        let viewTitle = document.createElement("h2");
+        viewTitle.textContent = obj.title;
+        viewSpecificTodo.appendChild(viewTitle);
+
+        let viewDescription = document.createElement("p");
+        viewDescription.textContent = obj.description;
+        viewDescription.style.fontStyle = "italic";
+        viewSpecificTodo.appendChild(viewDescription);
+
+        let viewPriority = document.createElement("p");
+        if (obj.priority == 0) {
+          viewPriority.textContent = "Priority: Low";
+          viewPriority.style.color = "#00685e";
+        } else if (obj.priority == 1) {
+          viewPriority.textContent = "Priority: Medium";
+          viewPriority.style.color = "#fa9370";
+        } else if (obj.priority == 2) {
+          viewPriority.textContent = "Priority: High";
+          viewPriority.style.color = "#ce0037";
+        } else {
+          viewPriority.textContent = "Priority: Unsure...";
+        }
+        viewSpecificTodo.appendChild(viewPriority);
+
+        // Function to parse the date string in "Monday, 4/15/24" format
+        let parseDateString = (dateString) => {
+          // Split the dateString into day, month, and year parts
+          const [dayOfWeek, date] = dateString.split(", ");
+          const [month, day, year] = date.split("/");
+
+          // Parse the parts into a Date object
+          return parse(`${month}/${day}/${year}`, "MM/dd/yy", new Date());
+        };
+
+        // Example usage
+        let givenDateString = obj.dueDate;
+        let givenDate = parseDateString(givenDateString);
+
+        // Calculate the difference in days between today and the given date
+        let daysDifference = differenceInDays(new Date(), givenDate) * -1 + 1;
+
+        let viewDueDate = document.createElement("p");
+        viewDueDate.textContent = `Days left to complete task: ${daysDifference}`;
+        if (daysDifference > 30) {
+          viewDueDate.style.color = "#00685e";
+        } else if (daysDifference >= 4 && daysDifference <= 30) {
+          viewDueDate.style.color = "#fa9370";
+        } else if (daysDifference <= 3) {
+          viewDueDate.style.color = "#ce0037";
+        }
+        viewSpecificTodo.appendChild(viewDueDate);
+
+        let viewProject = document.createElement("p");
+        viewProject.textContent = "Project: " + obj.project;
+        viewProject.style.color = "#485cc7";
+        viewSpecificTodo.appendChild(viewProject);
+
+        let viewCompleted = document.createElement("p");
+        if (obj.completed) {
+          let nodes = viewSpecificTodo.childNodes;
+          for (let i = 0; i < nodes.length; i++) {
+            nodes[i].style.textDecoration = "line-through";
+          }
+          viewCompleted.style.color = "#7aad7b";
+          viewCompleted.textContent = "Status: Done! Hooray!";
+        } else {
+          viewCompleted.textContent = "Status: Still need to do...";
+          viewCompleted.style.color = "orange";
+        }
+        viewSpecificTodo.appendChild(viewCompleted);
+
+        document.getElementById("view-todo-popup").style.display = "block";
+
+        document
+          .getElementById("view-todo-popup-close")
+          .addEventListener("click", function () {
+            document.getElementById("view-todo-popup").style.display = "none";
+          });
+
+        window.addEventListener("click", function (event) {
+          if (event.target == document.getElementById("view-todo-popup")) {
+            document.getElementById("view-todo-popup").style.display = "none";
+          }
+        });
       };
       newToDoDiv.appendChild(viewButton);
 

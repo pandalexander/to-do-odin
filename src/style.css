@@ -104,7 +104,7 @@ h2 {
 }
 
 .undone {
-  color: orange;
+  color: #777673;
   margin: 0;
   font-size: 20px;
   margin-left: 20px;
@@ -278,4 +278,31 @@ input:focus,
 
 #add-todo-form button {
   grid-column: 1 / -1;
+}
+
+/* View To do Styling */
+#view-todo-popup:hover {
+  cursor: pointer;
+}
+
+.view-todo-popup-content {
+  border-radius: 15px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  background-color: #fefefe;
+  margin: 10% auto;
+  padding: 20px;
+  width: 80%;
+  max-width: 400px;
+}
+
+.view-todo-popup-content p {
+  margin-top: 15px;
+}
+
+#view-todo-popup-close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
 }
