@@ -197,6 +197,7 @@ input {
   padding: 7px;
   height: 19px;
   border-radius: 5px;
+  border: solid 1px gray;
 }
 
 input:focus {
