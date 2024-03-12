@@ -95,6 +95,10 @@ h2 {
   margin-right: auto;
 }
 
+.to-do-item span {
+  margin-left: 30px;
+}
+
 .undone {
   color: orange;
   margin: 0;

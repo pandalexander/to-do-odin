@@ -7,6 +7,7 @@ import CheckCircleIcon from "./svg/check-circle.svg";
 import CircleIcon from "./svg/circle.svg";
 import PlusSquare from "./svg/plus-square.svg";
 import PlusIcon from "./svg/plus.svg";
+import EditIcon from "./svg/edit.svg";
 
 const plusSquareIcon = document.getElementById("plus-square-icon");
 const plusIcon = document.getElementById("plus-icon");
@@ -229,6 +230,13 @@ function printAllTodoItems() {
       let para = document.createElement("p");
       para.textContent = item.list[i].title;
       newToDoDiv.appendChild(para);
+
+      let editButton = document.createElement("img");
+      editButton.src = EditIcon;
+      editButton.onclick = function () {
+        console.log(item.list[i]);
+      };
+      newToDoDiv.appendChild(editButton);
 
       let span = document.createElement("span");
       if (item.list[i].completed) {
