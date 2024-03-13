@@ -63,7 +63,7 @@ class Todo {
 const firstTodo = new Todo(
   "Do Taxes",
   "Do you Taxes, man.",
-  "4/15/2024",
+  "04/15/2024",
   2,
   "My To-Do"
 );
@@ -395,7 +395,14 @@ function printAllTodoItems() {
         function submitHandler(event) {
           event.preventDefault(); // Prevent the default form submission behavior
 
-          changeTitle(obj, document.getElementById("edit-todo-title").value);
+          console.log(obj.title);
+          console.log(document.getElementById("edit-todo-title").value);
+          if (document.getElementById("edit-todo-title").value !== "") {
+            changeTitle(obj, document.getElementById("edit-todo-title").value);
+          }
+          console.log("Change Title has been run");
+          console.log(obj.title);
+          console.log(document.getElementById("edit-todo-title").value);
 
           changeDueDate(
             obj,
