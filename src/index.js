@@ -395,14 +395,9 @@ function printAllTodoItems() {
         function submitHandler(event) {
           event.preventDefault(); // Prevent the default form submission behavior
 
-          console.log(obj.title);
-          console.log(document.getElementById("edit-todo-title").value);
           if (document.getElementById("edit-todo-title").value !== "") {
             changeTitle(obj, document.getElementById("edit-todo-title").value);
           }
-          console.log("Change Title has been run");
-          console.log(obj.title);
-          console.log(document.getElementById("edit-todo-title").value);
 
           changeDueDate(
             obj,
