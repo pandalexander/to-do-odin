@@ -25,8 +25,6 @@ class Project {
     this.list = [];
     if (this.isNameTaken()) {
       alert("Project name already exists. Please choose a different name.");
-      // You can choose to throw an error or handle the situation differently based on your requirements
-      // throw new Error("Project name already exists. Please choose a different name.");
     } else {
       allProjectArray.push(this);
     }
@@ -44,14 +42,10 @@ class Todo {
     this.title = title;
     this.description = description;
     this.dueDate = dueDate;
-
-    // this.dueDate = format(dueDate, "MM-dd-yyyy");
     this.priority = priority;
     this.project = project;
     this.projectPublicName = project.name;
-    // project.list.push(this);
     this.completed = false;
-
     for (const item of allProjectArray) {
       if (item.name == project) {
         item.list.push(this);
@@ -67,14 +61,6 @@ const firstTodo = new Todo(
   2,
   "My To-Do"
 );
-
-// const secondTodo = new Todo(
-//   "Clean Car",
-//   "Just do it",
-//   new Date(2023, 2, 3),
-//   0,
-//   defaultProject
-// );
 
 function changeProjectName(project, newName) {
   project.name = newName;
@@ -110,9 +96,13 @@ function changeCompletion(object) {
 }
 
 function deleteTodo(todoItem) {
-  todoItem.project.list = todoItem.project.list.filter(
-    (object) => object.title != todoItem.title
-  );
+  for (const project of allProjectArray) {
+    if ((todoItem.project = project.name)) {
+      project.list = project.list.filter(
+        (object) => object.title != todoItem.title
+      );
+    }
+  }
 }
 
 function changeProject(todoItem, newProject) {
@@ -220,10 +210,6 @@ function printProjectsOnSidebar() {
       printEverything();
     };
     newDiv.appendChild(trashIcon);
-
-    // let bookIcon = document.createElement("img");
-    // bookIcon.src = BookIcon;
-    // newDiv.appendChild(bookIcon);
 
     let p = document.createElement("p");
     p.textContent = item.name;
@@ -355,6 +341,7 @@ function printAllTodoItems() {
 
       let editButton = document.createElement("img");
       editButton.src = EditIcon;
+      editButton.classList.add("edit-button");
       editButton.onclick = function () {
         // View to-Do Item DOM manipulation
         let editSpecificTodo = document.getElementById(
@@ -449,6 +436,16 @@ function printAllTodoItems() {
         });
       };
       newToDoDiv.appendChild(editButton);
+
+      let trashTodoButton = document.createElement("img");
+      trashTodoButton.src = TrashIcon;
+      trashTodoButton.onclick = function () {
+        // console.log(item.list[i].project.list);
+        console.log(item.list[i].project);
+        deleteTodo(item.list[i]);
+        printEverything();
+      };
+      newToDoDiv.appendChild(trashTodoButton);
     }
   }
 }
