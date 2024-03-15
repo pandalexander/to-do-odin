@@ -17,7 +17,9 @@ const plusIcon = document.getElementById("plus-icon");
 plusSquareIcon.src = PlusSquare;
 plusIcon.src = PlusIcon;
 
-let allProjectArray = [];
+let allProjectArray = localStorage.getItem("allProjectArray")
+  ? JSON.parse(localStorage.getItem("allProjectArray"))
+  : [];
 
 class Project {
   constructor(name) {
@@ -27,6 +29,7 @@ class Project {
       alert("Project name already exists. Please choose a different name.");
     } else {
       allProjectArray.push(this);
+      localStorage.setItem("allProjectArray", JSON.stringify(allProjectArray));
     }
   }
 
@@ -34,8 +37,6 @@ class Project {
     return allProjectArray.some((project) => project.name === this.name);
   }
 }
-
-const defaultProject = new Project("My To-Do");
 
 class Todo {
   constructor(title, description, dueDate, priority, project) {
@@ -49,29 +50,40 @@ class Todo {
     for (const item of allProjectArray) {
       if (item.name == project) {
         item.list.push(this);
+        localStorage.setItem(
+          "allProjectArray",
+          JSON.stringify(allProjectArray)
+        );
       }
     }
   }
 }
 
-const firstTodo = new Todo(
-  "Do Taxes",
-  "Do you Taxes, man.",
-  "04/15/2024",
-  2,
-  "My To-Do"
-);
+if (allProjectArray[0] == undefined) {
+  console.log("confirm");
+  let defaultProject = new Project("My Tasks");
+  let firstTodo = new Todo(
+    "Create a Task to Get Started",
+    "We Love Tasks!",
+    "04/15/2024",
+    2,
+    "My Tasks"
+  );
+}
 
 function changeProjectName(project, newName) {
   project.name = newName;
+  localStorage.setItem("allProjectArray", JSON.stringify(allProjectArray));
 }
 
 function changeTitle(object, newTitle) {
   object.title = newTitle;
+  localStorage.setItem("allProjectArray", JSON.stringify(allProjectArray));
 }
 
 function changeDescription(object, newDescription) {
   object.description = newDescription;
+  localStorage.setItem("allProjectArray", JSON.stringify(allProjectArray));
 }
 
 function formatDate(inputDate) {
@@ -81,10 +93,12 @@ function formatDate(inputDate) {
 
 function changeDueDate(object, newDueDate) {
   object.dueDate = newDueDate;
+  localStorage.setItem("allProjectArray", JSON.stringify(allProjectArray));
 }
 
 function changePriority(object, newPriority) {
   object.priority = newPriority;
+  localStorage.setItem("allProjectArray", JSON.stringify(allProjectArray));
 }
 
 function changeCompletion(object) {
@@ -93,6 +107,7 @@ function changeCompletion(object) {
   } else if (!object.completed) {
     object.completed = true;
   }
+  localStorage.setItem("allProjectArray", JSON.stringify(allProjectArray));
 }
 
 function deleteTodo(todoItem) {
@@ -103,6 +118,7 @@ function deleteTodo(todoItem) {
       );
     }
   }
+  localStorage.setItem("allProjectArray", JSON.stringify(allProjectArray));
 }
 
 function changeProject(todoItem, newProject) {
@@ -121,13 +137,15 @@ function changeProject(todoItem, newProject) {
       todoItem.projectPublicName = project.name;
     }
   }
+  localStorage.setItem("allProjectArray", JSON.stringify(allProjectArray));
 }
 
 function deleteProject(project) {
   allProjectArray = allProjectArray.filter(
     (object) => object.name != project.name
   );
-  return "HEY!";
+  localStorage.setItem("allProjectArray", JSON.stringify(allProjectArray));
+  // return "HEY!";
 }
 
 // DOM MANIPULATION
