@@ -11,6 +11,13 @@ import EditIcon from "./svg/edit.svg";
 import EyeIcon from "./svg/eye.svg";
 import TrashIcon from "./svg/trash.svg";
 
+const favicon = document.createElement("link");
+favicon.href = CheckCircleIcon;
+favicon.rel = "icon";
+favicon.type = "image/x-icon";
+
+document.getElementsByTagName("head")[0].appendChild(favicon);
+
 const plusSquareIcon = document.getElementById("plus-square-icon");
 const plusIcon = document.getElementById("plus-icon");
 
@@ -197,7 +204,7 @@ function printProjectsOnSidebar() {
   addTodoDiv.appendChild(plusTodoIcon);
 
   let addTodoPara = document.createElement("p");
-  addTodoPara.textContent = "Add Todo";
+  addTodoPara.textContent = "Add Task";
   addTodoDiv.appendChild(addTodoPara);
 
   document
